@@ -2,6 +2,9 @@ import requests
 from datetime import datetime
 
 def load_data(path):
+    """Получаем данные из файла
+    На всякий случай проверяем корректность получения с выводом
+    статус-кода"""
     try:
         response = requests.get(path)
         if response.status_code == 200:
@@ -12,6 +15,8 @@ def load_data(path):
 
 
 def get_filtred_data(data, filtred_empty_from=False):
+    """Фильтруем данные по статусу 'EXECUTED'. На всякий случай фильтруем
+    по наличию отправителя 'from'"""
     data = [x for x in data if "state" in x and x["state"] == 'EXECUTED']
     if filtred_empty_from:
         data = [x for x in data if "from" in x]
@@ -19,10 +24,12 @@ def get_filtred_data(data, filtred_empty_from=False):
 
 
 def get_last_data(data, count_last_values):
+    """Сортируем по дате"""
     data = sorted(data, key=lambda x: x["date"], reverse=True)
     return data[:count_last_values]
 
 def get_formatted_data(data):
+    """Переводим дату в нужный формат"""
     formatted_data = []
     for i in data:
         date = datetime.strptime(i["date"], "%Y-%m-%dT%H:%M:%S.%f").strftime("%d.%m.%Y")

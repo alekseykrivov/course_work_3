@@ -5,7 +5,7 @@ from utils import load_data, get_filtred_data, get_last_data, get_formatted_data
 
 def main():
     JSON_DATA_URL = "https://www.jsonkeeper.com/b/H7GP"
-    COUNT_LAST_VALUES = 5
+    COUNT_LAST_VALUES = 5 #Количество необходимых значений
     FILTRED_EMPTY_FROM = True
 
     data, info = load_data(JSON_DATA_URL)
